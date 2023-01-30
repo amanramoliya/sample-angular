@@ -3,46 +3,30 @@
 </div>
 
 <div class="container">
-  <div class="row" *ngIf="allPokemon.length === 0; else table">
-    No Pokemon to Display
-  </div>
-</div>
-
-<ng-template #table>
-  <div class="container border border-1 border-dark mt-3">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">SrNo.</th>
-          <th scope="col">Name</th>
-          <th scope="col">Id</th>
-          <th scope="col">Power</th>
-          <th scope="col">Image URL</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let pokemon of allPokemon">
-        <tr>
-          <th scope="row">{{ pokemon.id }}</th>
-          <td>{{ pokemon.name }}</td>
-          <td>{{ pokemon.id }}</td>
-          <td>{{ pokemon.power }}</td>
-          <td>
-            <img height="100px" src="{{ pokemon.imageUrl }}" alt="not loaded" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</ng-template>
-<div class="container">
   <button
-    class="btn btn-primary mt-3"
+    class="btn btn-primary mb-3"
     data-bs-target="#exampleModal"
     data-bs-toggle="modal"
   >
     Add a Pokemon
   </button>
 </div>
+
+<div class="container">
+  <div class="row" *ngIf="allPokemon.length === 0; else table">
+    No Pokemon to Display
+  </div>
+</div>
+
+<ng-template #table>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 mb-3" *ngFor="let pokemon of allPokemon">
+        <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
 <!-- Modal -->
 <div

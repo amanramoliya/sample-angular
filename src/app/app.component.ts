@@ -29,7 +29,6 @@ export class AppComponent implements OnInit {
       });
       
       this.pokemonService.getPokemons().subscribe(response => {
-        console.log(response);
         this.allPokemon = response;
       });
   }

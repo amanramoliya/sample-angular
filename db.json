@@ -2,9 +2,27 @@
   "pokemon": [
     {
       "id": 1,
-      "name": "bulbasaur",
-      "power": "grass",
+      "name": "Bulbasaur",
+      "power": "Grass",
       "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
+    },
+    {
+      "id": 2,
+      "name": "Ivysaur",
+      "power": "Grass",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/002.png"
+    },
+    {
+      "id": 3,
+      "name": "Venusaur",
+      "power": "Grass",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/003.png"
+    },
+    {
+      "id": 4,
+      "name": "Charmander",
+      "power": "Fire",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png"
     }
   ],
   "comments": [
