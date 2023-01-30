@@ -1,0 +1,20 @@
+{
+  "pokemon": [
+    {
+      "id": 1,
+      "name": "bulbasaur",
+      "power": "grass",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

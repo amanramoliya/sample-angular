@@ -1,6 +1,39 @@
 <div class="container">
   <app-header></app-header>
 </div>
+
+<div class="container">
+  <div class="row" *ngIf="allPokemon.length === 0; else table">
+    No Pokemon to Display
+  </div>
+</div>
+
+<ng-template #table>
+  <div class="container border border-1 border-dark mt-3">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">SrNo.</th>
+          <th scope="col">Name</th>
+          <th scope="col">Id</th>
+          <th scope="col">Power</th>
+          <th scope="col">Image URL</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let pokemon of allPokemon">
+        <tr>
+          <th scope="row">{{ pokemon.id }}</th>
+          <td>{{ pokemon.name }}</td>
+          <td>{{ pokemon.id }}</td>
+          <td>{{ pokemon.power }}</td>
+          <td>
+            <img height="100px" src="{{ pokemon.imageUrl }}" alt="not loaded" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
 <div class="container">
   <button
     class="btn btn-primary mt-3"
@@ -34,21 +67,21 @@
         <div class="container">
           <form [formGroup]="pokemonForm" class="d-flex flex-column">
             <input
-              class="mb-2 rounded-sm"
+              class="mb-2 rounded-sm text-center"
               id="Name"
               type="text"
               placeholder="Pokemon Name"
               formControlName="name"
             />
             <input
-              class="mb-2 rounded-sm"
+              class="mb-2 rounded-sm text-center"
               id="id"
               type="number"
               placeholder="Pokemon Id"
               formControlName="id"
             />
             <input
-              class="mb-2 rounded-sm"
+              class="mb-2 rounded-sm text-center"
               id="power"
               type="text"
               placeholder="Pokemon Power"
