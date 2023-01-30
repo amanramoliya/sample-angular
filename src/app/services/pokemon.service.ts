@@ -31,4 +31,8 @@ export class PokemonService {
       //   }
       // ]
    }
+
+   postPokemons(pokemon: PokemonModel) {
+    return this.http.post<PokemonModel>(this.baseUrl, pokemon);
+   }
 }
