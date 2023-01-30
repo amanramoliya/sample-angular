@@ -71,6 +71,12 @@
       "name": "Butterfree",
       "power": "jsk",
       "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/012.png"
+    },
+    {
+      "id": 101,
+      "name": "tannu",
+      "power": "Milk",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/101.png"
     }
   ],
   "comments": [

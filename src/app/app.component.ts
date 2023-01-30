@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { PokemonModel } from './model/pokemon.model';
 import { PokemonService } from './services/pokemon.service';
 
@@ -15,7 +20,10 @@ export class AppComponent implements OnInit {
   allPokemon: PokemonModel[];
   pokemonToDisplay: PokemonModel[];
   pokemonAdded: boolean = false;
+  Error: string = 'No pokemon';
+  isError: boolean = false;
 
+  pokemon: PokemonModel = new PokemonModel();
   constructor(private fb: FormBuilder, private pokemonService: PokemonService) {
     this.pokemonForm = fb.group({});
     this.allPokemon = [];
@@ -24,13 +32,21 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokemonForm = this.fb.group({
-      name: this.fb.control(''),
+      name: this.fb.control(this.pokemon.name, [Validators.required]),
       id: this.fb.control(null),
       power: this.fb.control(''),
     });
 
-    this.pokemonService.getPokemons().subscribe((response) => {
-      this.allPokemon = response;
+    this.pokemonService.getPokemons().subscribe({
+      next: (response) => {
+        this.allPokemon = response;
+      },
+
+      error: (err) => {
+        this.Error = err.message;
+        this.isError = true;
+        console.log(this.Error);
+      },
     });
   }
 
@@ -47,22 +63,35 @@ export class AppComponent implements OnInit {
   }
 
   addPokemon() {
-    const pokemon: PokemonModel = {
-      id: this.Id.value,
-      name: this.Name.value,
-      power: this.Power.value,
-      imageUrl: `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.getImageId(
+    (this.pokemon.id = this.Id.value),
+      (this.pokemon.name = this.Name.value),
+      (this.pokemon.power = this.Power.value),
+      (this.pokemon.imageUrl = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${this.getImageId(
         this.Id.value
-      )}.png`,
-    };
-    this.savePokemon(pokemon).subscribe({
-      next: () => console.log('result'),
-      error: () => console.log('error'),
+      )}.png`);
+
+    this.savePokemon(this.pokemon).subscribe({
+      next: (response) => {
+        this.allPokemon.unshift(response);
+
+        this.clearForm();
+        this.pokemonAdded = true;
+      },
+      error: (err) => {
+        this.Error = err.message;
+        this.isError = true;
+        console.log(this.isError);
+      },
     });
   }
 
   removeSuccessAlert() {
     this.pokemonAdded = false;
+  }
+
+  removeErrorAlert() {
+    this.Error = '';
+    this.isError = false;
   }
 
   savePokemon(pokemon: PokemonModel) {

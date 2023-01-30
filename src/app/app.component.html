@@ -1,16 +1,32 @@
 <div class="container">
   <app-header></app-header>
-  <div class="alert alert-success" role="alert" *ngIf="pokemonAdded">
-    This is a success alert—check it out!
+  <div
+    class="alert alert-success alert-dismissible fade show"
+    role="alert"
+    *ngIf="pokemonAdded"
+  >
+    Pokemon Added!
     <button
       type="button"
-      class="close"
-      data-dismiss="alert"
+      class="btn-close"
+      data-bs-dismiss="alert"
       aria-label="Close"
       (click)="removeSuccessAlert()"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
+    ></button>
+  </div>
+  <div
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+    *ngIf="isError"
+  >
+    Error Occurs!
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+      (click)="removeErrorAlert()"
+    ></button>
   </div>
 </div>
 
@@ -26,7 +42,7 @@
 
 <div class="container">
   <div class="row" *ngIf="allPokemon.length === 0; else table">
-    No Pokemon to Display
+    {{ Error }}
   </div>
 </div>
 
@@ -61,13 +77,33 @@
       </div>
       <div class="modal-body">
         <div class="container">
-          <form [formGroup]="pokemonForm" class="d-flex flex-column">
+          <form
+            [formGroup]="pokemonForm"
+            (submit)="addPokemon()"
+            class="d-flex flex-column"
+          >
             <input
               class="mb-2 rounded-sm text-center"
               type="text"
               placeholder="Pokemon Name"
               formControlName="name"
+              id="name"
+              required
             />
+
+            <!-- <div *ngIf="this.Name.errors?.['required']">Name is required.</div> -->
+            <div *ngIf="this.Name.invalid" class="alert alert-danger">
+              <div *ngIf="this.Name.errors?.['required']">
+                Name is required.
+              </div>
+              <div *ngIf="this.Name.errors?.['minlength']">
+                Name must be at least 4 characters long.
+              </div>
+              <div *ngIf="this.Name.errors?.['forbiddenName']">
+                Name cannot be Bob.
+              </div>
+            </div>
+
             <input
               class="mb-2 rounded-sm text-center"
               type="number"
@@ -80,21 +116,31 @@
               placeholder="Pokemon Power"
               formControlName="power"
             />
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <div *ngIf="!this.Name.invalid; else elseBlock">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                >
+                  Save changes
+                </button>
+              </div>
+              <ng-template #elseBlock>
+                <button type="submit" class="btn btn-primary" disabled>
+                  Save changes
+                </button>
+              </ng-template>
+            </div>
           </form>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-dismiss="modal"
-          (click)="addPokemon()"
-        >
-          Save changes
-        </button>
       </div>
     </div>
   </div>
