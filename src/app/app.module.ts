@@ -7,9 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { PokemonCardComponent } from './pokemon-card/pokemon-card.component';
+import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, PokemonCardComponent],
+  declarations: [AppComponent, HeaderComponent, PokemonCardComponent, PokemonListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

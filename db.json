@@ -77,6 +77,18 @@
       "name": "tannu",
       "power": "Milk",
       "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/101.png"
+    },
+    {
+      "id": 100,
+      "name": "hfhffh",
+      "power": "grass",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/100.png"
+    },
+    {
+      "id": 99,
+      "name": "fdbyf",
+      "power": "water",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/099.png"
     }
   ],
   "comments": [

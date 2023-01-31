@@ -1,5 +1,5 @@
+<app-header></app-header>
 <div class="container">
-  <app-header></app-header>
   <div
     class="alert alert-success alert-dismissible fade show"
     role="alert"
@@ -47,13 +47,7 @@
 </div>
 
 <ng-template #table>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4 mb-3" *ngFor="let pokemon of allPokemon">
-        <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
-      </div>
-    </div>
-  </div>
+  <app-pokemon-list [pokemons]="allPokemon"></app-pokemon-list>
 </ng-template>
 
 <!-- Modal -->
@@ -88,11 +82,11 @@
               placeholder="Pokemon Name"
               formControlName="name"
               id="name"
+              (change)="validateName()"
               required
             />
 
-            <!-- <div *ngIf="this.Name.errors?.['required']">Name is required.</div> -->
-            <div *ngIf="this.Name.invalid" class="alert alert-danger">
+            <div *ngIf="nameError" class="alert alert-danger">
               <div *ngIf="this.Name.errors?.['required']">
                 Name is required.
               </div>
@@ -109,12 +103,14 @@
               type="number"
               placeholder="Pokemon Id"
               formControlName="id"
+              required
             />
             <input
               class="mb-2 rounded-sm text-center"
               type="text"
               placeholder="Pokemon Power"
               formControlName="power"
+              required
             />
             <div class="modal-footer">
               <button
@@ -124,20 +120,16 @@
               >
                 Close
               </button>
-              <div *ngIf="!this.Name.invalid; else elseBlock">
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  data-bs-dismiss="modal"
-                >
-                  Save changes
-                </button>
-              </div>
-              <ng-template #elseBlock>
-                <button type="submit" class="btn btn-primary" disabled>
-                  Save changes
-                </button>
-              </ng-template>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                [disabled]="
+                  this.Name.invalid || this.Id.invalid || this.Power.invalid
+                "
+              >
+                Save changes
+              </button>
             </div>
           </form>
         </div>

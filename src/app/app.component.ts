@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   pokemonAdded: boolean = false;
   Error: string = 'No pokemon';
   isError: boolean = false;
+  nameError: boolean = false;
 
   pokemon: PokemonModel = new PokemonModel();
   constructor(private fb: FormBuilder, private pokemonService: PokemonService) {
@@ -32,9 +33,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokemonForm = this.fb.group({
-      name: this.fb.control(this.pokemon.name, [Validators.required]),
-      id: this.fb.control(null),
-      power: this.fb.control(''),
+      name: this.fb.control(this.pokemon.name, [
+        Validators.required,
+        Validators.pattern('[a-zA-Z ]*'),
+      ]),
+      id: this.fb.control(null, [Validators.required]),
+      power: this.fb.control('', [
+        Validators.required,
+        Validators.pattern('[a-zA-Z ]*'),
+      ]),
     });
 
     this.pokemonService.getPokemons().subscribe({
@@ -96,6 +103,10 @@ export class AppComponent implements OnInit {
 
   savePokemon(pokemon: PokemonModel) {
     return this.pokemonService.postPokemons(pokemon);
+  }
+
+  validateName() {
+    this.nameError = this.Name.invalid;
   }
 
   public get Name(): FormControl {
