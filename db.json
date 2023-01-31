@@ -125,6 +125,12 @@
       "name": "fadbca",
       "power": "posion",
       "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/203.png"
+    },
+    {
+      "id": 45,
+      "name": "Paras",
+      "power": "Ice",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/045.png"
     }
   ],
   "comments": [

@@ -27,8 +27,13 @@
           type="search"
           placeholder="Search"
           aria-label="Search"
+          #searchc
+          (change)="search(searchc)"
         />
-        <button class="btn btn-outline-success" type="submit">Search</button>
+
+        <button class="btn btn-outline-success" type="submit">
+          <a href="/list/{{ searchInput }}"> Search</a>
+        </button>
       </form>
     </div>
   </nav>

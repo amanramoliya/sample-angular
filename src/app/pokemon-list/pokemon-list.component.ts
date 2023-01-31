@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PokemonModel } from '../model/pokemon.model';
 import { PokemonService } from '../services/pokemon.service';
@@ -29,13 +30,15 @@ export class PokemonListComponent {
   pageSize: number;
   collectionSize: number;
   closeResult = '';
+  queryPokemonName: string | null = '';
 
   pokemon: PokemonModel = new PokemonModel();
 
   constructor(
     private fb: FormBuilder,
     private pokemonService: PokemonService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private route: ActivatedRoute
   ) {
     this.pokemonForm = fb.group({});
     this.allPokemon = [];
@@ -43,6 +46,8 @@ export class PokemonListComponent {
     this.page = 1;
     this.pageSize = 9;
     this.collectionSize = this.allPokemon.length;
+    this.queryPokemonName = this.route.snapshot.paramMap.get('name');
+    console.log(this.queryPokemonName);
   }
 
   ngOnInit(): void {
@@ -61,8 +66,13 @@ export class PokemonListComponent {
     this.pokemonService.getPokemons().subscribe({
       next: (response) => {
         this.allPokemon = response;
-        this.collectionSize = this.allPokemon.length;
+
         this.refreshPokemons();
+        this.collectionSize = this.allPokemon.length;
+
+        this.queryPokemonName && this.filterPokemon();
+        this.queryPokemonName &&
+          (this.collectionSize = this.pokemonToDisplay.length);
       },
 
       error: (err) => {
@@ -77,6 +87,17 @@ export class PokemonListComponent {
     this.Name.setValue('');
     this.Power.setValue('');
     this.Id.setValue(0);
+  }
+
+  filterPokemon() {
+    this.pokemonToDisplay = this.allPokemon.filter((p) =>
+      p.name
+        .toLowerCase()
+        .startsWith(
+          this.queryPokemonName?.toLowerCase() ? this.queryPokemonName : ''
+        )
+    );
+    console.log(this.allPokemon);
   }
 
   open(content: any) {
