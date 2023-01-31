@@ -1,7 +1,151 @@
 <div class="container">
+  <div class="container">
+    <button
+      class="btn btn-primary mb-3"
+      data-bs-target="#exampleModal"
+      data-bs-toggle="modal"
+    >
+      Add a Pokemon
+    </button>
+  </div>
+
+  <div class="container">
+    <div class="row" *ngIf="allPokemon.length === 0">
+      {{ Error }}
+    </div>
+  </div>
+
+  <div class="container">
+    <div
+      class="alert alert-success alert-dismissible fade show"
+      role="alert"
+      *ngIf="pokemonAdded"
+    >
+      Pokemon Added!
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        (click)="removeSuccessAlert()"
+      ></button>
+    </div>
+    <div
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+      *ngIf="isError"
+    >
+      Error Occurs!
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        (click)="removeErrorAlert()"
+      ></button>
+    </div>
+  </div>
+
   <div class="row">
-    <div class="col-sm-4 mb-3" *ngFor="let pokemon of pokemons">
+    <div class="col-sm-4 mb-3" *ngFor="let pokemon of pokemonToDisplay">
       <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between p-2">
+    <ngb-pagination
+      [collectionSize]="collectionSize"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      (pageChange)="refreshPokemons()"
+    >
+    </ngb-pagination>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Pokemon</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form
+            [formGroup]="pokemonForm"
+            (submit)="addPokemon()"
+            class="d-flex flex-column"
+          >
+            <input
+              class="mb-2 rounded-sm text-center"
+              type="text"
+              placeholder="Pokemon Name"
+              formControlName="name"
+              id="name"
+              (change)="validateName()"
+              required
+            />
+
+            <div *ngIf="nameError" class="alert alert-danger">
+              <div *ngIf="this.Name.errors?.['required']">
+                Name is required.
+              </div>
+              <div *ngIf="this.Name.errors?.['minlength']">
+                Name must be at least 4 characters long.
+              </div>
+              <div *ngIf="this.Name.errors?.['forbiddenName']">
+                Name cannot be Bob.
+              </div>
+            </div>
+
+            <input
+              class="mb-2 rounded-sm text-center"
+              type="number"
+              placeholder="Pokemon Id"
+              formControlName="id"
+              required
+            />
+            <input
+              class="mb-2 rounded-sm text-center"
+              type="text"
+              placeholder="Pokemon Power"
+              formControlName="power"
+              required
+            />
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                [disabled]="
+                  this.Name.invalid || this.Id.invalid || this.Power.invalid
+                "
+              >
+                Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -89,6 +89,12 @@
       "name": "fdbyf",
       "power": "water",
       "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/099.png"
+    },
+    {
+      "id": 52,
+      "name": "fdsfd",
+      "power": "eletricity",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/052.png"
     }
   ],
   "comments": [

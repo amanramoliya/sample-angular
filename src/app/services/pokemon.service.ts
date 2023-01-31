@@ -15,4 +15,8 @@ export class PokemonService {
   postPokemons(pokemon: PokemonModel) {
     return this.http.post<PokemonModel>(this.baseUrl, pokemon);
   }
+
+  getPokemon(id: number | string) {
+    return this.http.get<PokemonModel>(this.baseUrl + `/${id}`);
+  }
 }
