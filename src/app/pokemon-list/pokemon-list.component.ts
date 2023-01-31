@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PokemonModel } from '../model/pokemon.model';
 import { PokemonService } from '../services/pokemon.service';
 
@@ -22,12 +23,20 @@ export class PokemonListComponent {
   Error: string = 'No pokemon';
   isError: boolean = false;
   nameError: boolean = false;
+  idError: boolean = false;
+  powerError: boolean = false;
   page: number;
   pageSize: number;
   collectionSize: number;
+  closeResult = '';
 
   pokemon: PokemonModel = new PokemonModel();
-  constructor(private fb: FormBuilder, private pokemonService: PokemonService) {
+
+  constructor(
+    private fb: FormBuilder,
+    private pokemonService: PokemonService,
+    private modalService: NgbModal
+  ) {
     this.pokemonForm = fb.group({});
     this.allPokemon = [];
     this.pokemonToDisplay = [];
@@ -70,13 +79,28 @@ export class PokemonListComponent {
     this.Id.setValue(0);
   }
 
+  open(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${{ result }}`;
+          // console.log(result);
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${{ reason }}`;
+        }
+      );
+  }
+
   getImageId(id: number): string {
     if (id < 10) return '00' + id;
     else if (id < 100) return '0' + id;
     else return String(id);
   }
 
-  addPokemon() {
+  addPokemon(modal: NgbActiveModal) {
+    modal.close();
     (this.pokemon.id = this.Id.value),
       (this.pokemon.name = this.Name.value),
       (this.pokemon.power = this.Power.value),
@@ -86,7 +110,7 @@ export class PokemonListComponent {
 
     this.savePokemon(this.pokemon).subscribe({
       next: (response) => {
-        this.allPokemon.unshift(response);
+        this.pokemonToDisplay.unshift(response);
 
         this.clearForm();
         this.pokemonAdded = true;
@@ -122,6 +146,14 @@ export class PokemonListComponent {
 
   validateName() {
     this.nameError = this.Name.invalid;
+  }
+
+  validateId() {
+    this.idError = this.Id.invalid;
+  }
+
+  validatePower() {
+    this.powerError = this.Power.invalid;
   }
 
   public get Name(): FormControl {

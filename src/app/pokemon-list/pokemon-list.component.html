@@ -1,10 +1,6 @@
 <div class="container">
   <div class="container">
-    <button
-      class="btn btn-primary mb-3"
-      data-bs-target="#exampleModal"
-      data-bs-toggle="modal"
-    >
+    <button class="btn btn-primary mb-3" (click)="open(content)">
       Add a Pokemon
     </button>
   </div>
@@ -63,7 +59,7 @@
 </div>
 
 <!-- Modal -->
-<div
+<!-- <div
   class="modal fade"
   id="exampleModal"
   tabindex="-1"
@@ -98,17 +94,7 @@
               required
             />
 
-            <div *ngIf="nameError" class="alert alert-danger">
-              <div *ngIf="this.Name.errors?.['required']">
-                Name is required.
-              </div>
-              <div *ngIf="this.Name.errors?.['minlength']">
-                Name must be at least 4 characters long.
-              </div>
-              <div *ngIf="this.Name.errors?.['forbiddenName']">
-                Name cannot be Bob.
-              </div>
-            </div>
+            
 
             <input
               class="mb-2 rounded-sm text-center"
@@ -148,4 +134,87 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Pokemon</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="pokemonForm">
+      <div class="mb-3">
+        <label for="name">Pokemon Name</label>
+        <div class="input-group">
+          <input
+            class="form-control mb-2 rounded-sm"
+            type="text"
+            placeholder="Pokemon Name"
+            formControlName="name"
+            id="name"
+            (change)="validateName()"
+            required
+          />
+        </div>
+
+        <div *ngIf="nameError" class="alert alert-danger">
+          <div *ngIf="this.Name.errors?.['required']">Name is required.</div>
+          <div *ngIf="this.Name.errors?.['pattern']">
+            Name Must be alphabet.
+          </div>
+        </div>
+
+        <label for="name">Pokemon Id</label>
+        <div class="input-group">
+          <input
+            class="form-control mb-2 rounded-sm"
+            type="number"
+            placeholder="Pokemon Id"
+            formControlName="id"
+            required
+            (change)="validateId()"
+          />
+        </div>
+
+        <div *ngIf="idError" class="alert alert-danger">
+          <div *ngIf="this.Id.errors?.['required']">Id is required.</div>
+          <div *ngIf="this.Id.errors?.['pattern']">Id Must be Number.</div>
+        </div>
+
+        <label for="name">Pokemon Power</label>
+        <div class="input-group">
+          <input
+            class="form-control mb-2 rounded-sm"
+            type="text"
+            placeholder="Pokemon Power"
+            formControlName="power"
+            required
+            (change)="validatePower()"
+          />
+        </div>
+
+        <div *ngIf="powerError" class="alert alert-danger">
+          <div *ngIf="this.Power.errors?.['required']">Power is required.</div>
+          <div *ngIf="this.Power.errors?.['pattern']">
+            Power Must be alphabet.
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="submit"
+      class="btn btn-outline-dark"
+      (click)="addPokemon(modal)"
+      [disabled]="this.Name.invalid || this.Id.invalid || this.Power.invalid"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>

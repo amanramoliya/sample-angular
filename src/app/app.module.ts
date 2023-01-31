@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModalModule,
+  NgbPaginationModule,
+} from '@ng-bootstrap/ng-bootstrap';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AboutComponent } from './about/about.component';
@@ -27,7 +30,8 @@ import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    NgbModule,
+    NgbPaginationModule,
+    NgbModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

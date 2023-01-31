@@ -95,6 +95,36 @@
       "name": "fdsfd",
       "power": "eletricity",
       "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/052.png"
+    },
+    {
+      "id": 177,
+      "name": "fewfdf",
+      "power": "posion",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/177.png"
+    },
+    {
+      "id": 200,
+      "name": "freqofbefb",
+      "power": "posion",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/200.png"
+    },
+    {
+      "id": 201,
+      "name": "codjcsdn ",
+      "power": "grass",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/201.png"
+    },
+    {
+      "id": 202,
+      "name": "fwjefp",
+      "power": "water",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/202.png"
+    },
+    {
+      "id": 203,
+      "name": "fadbca",
+      "power": "posion",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/203.png"
     }
   ],
   "comments": [
