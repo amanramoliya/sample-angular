@@ -9,7 +9,10 @@
         </li>
 
         <li class="list-group-item nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/list"
+          <a
+            class="nav-link active"
+            aria-current="page"
+            routerLink="/pokemon/list"
             >Pokemon List</a
           >
         </li>
@@ -27,8 +30,12 @@
           type="search"
           placeholder="Search"
           aria-label="Search"
+          #searchBar
+          (change)="search(searchBar)"
         />
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-success" type="submit">
+          <a href="/pokemon/list/{{ searchInput }}"> Search</a>
+        </button>
       </form>
     </div>
   </nav>

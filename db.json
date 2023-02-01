@@ -125,6 +125,12 @@
       "name": "fadbca",
       "power": "posion",
       "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/203.png"
+    },
+    {
+      "id": 206,
+      "name": "fyenfv",
+      "power": "grass",
+      "imageUrl": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/206.png"
     }
   ],
   "comments": [
