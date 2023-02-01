@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PokemonModel } from '../../model/pokemon.model';
+import { environment } from './../../../environments/environment';
 
 @Injectable()
 export class PokemonService {
-  baseUrl = 'http://localhost:3000/pokemon';
+  baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
   getPokemons() {
     return this.http.get<PokemonModel[]>(this.baseUrl);
